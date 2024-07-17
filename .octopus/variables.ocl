@@ -14,12 +14,6 @@ variable "spec:rules:0:host" {
     }
 }
 
-variable "Octopus.Azure.Account" {
-    type = "AzureAccount"
-
-    value "demo-octopus-app" {}
-}
-
 variable "Project.Labels.Component" {
     value "web" {}
 }
@@ -30,4 +24,10 @@ variable "Project.Deployment.Name" {
 
 variable "Project.Ingress.Name" {
     value "octopub-ingress" {}
+}
+
+variable "old-Octopus.Azure.Account" {
+    type = "AzureAccount"
+
+    value "demo-octopus-app" {}
 }
