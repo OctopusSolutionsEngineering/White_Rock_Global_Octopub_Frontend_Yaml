@@ -1,0 +1,47 @@
+name: Deploy changes
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+env:
+  OCTOPUS_SPACE: White Rock Global
+
+jobs:
+  sync-accounts:
+    name: Deploy changes
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Login to Octopus Deploy 
+        uses: OctopusDeploy/login@v1
+        with: 
+          server: https://demo.octopus.app
+          service_account_id: 4d50c8ac-1515-4351-96a7-4a82d55d55ff
+
+      - name: Create a release in Octopus Deploy 🐙
+        id: create-release
+        uses: OctopusDeploy/create-release-action@v3
+        with:
+          project: 'Octopub - Frontend'
+          git_ref: ${{ (github.ref_type == 'tag' && github.event.repository.default_branch ) || (github.head_ref || github.ref) }}
+          git_commit: ${{ github.event.after || github.event.pull_request.head.sha }}
+
+      - uses: OctopusDeploy/deploy-release-action@v3
+        id: deploy-release-to-development
+        name: "Deploy release ${{ steps.create-release.outputs.release_number }} to Development 🐙"
+        with:
+          project: 'Octopub - Frontend'
+          release_number: ${{ steps.create-release.outputs.release_number }}
+          environments: "Development"
+
+      - uses: OctopusDeploy/await-task-action@v3
+        id: "wait-for-deploy-development"
+        name: "Wait for deployment of ${{ steps.version-generator.outputs.version }} to complete 🐙"
+        with:
+          server_task_id: ${{ fromJson(steps.deploy-release-to-development.outputs.server_tasks)[0].serverTaskId }}
