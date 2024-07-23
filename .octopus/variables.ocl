@@ -22,6 +22,14 @@ variable "Project.Deployment.Name" {
     value "octopub-frontend-deployment" {}
 }
 
+variable "Project.Deployment.Replicas" {
+    value "1" {}
+
+    value "2" {
+        environment = ["production"]
+    }
+}
+
 variable "Project.Ingress.Name" {
     value "octopub-ingress" {}
 }
