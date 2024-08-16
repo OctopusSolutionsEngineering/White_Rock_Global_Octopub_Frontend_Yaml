@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: #{Project.Deployment.Name}
 spec:
-  replicas: #{Project.Deployment.Replicas}
+  replicas: 1
   selector:
     matchLabels:
       component: #{Project.Labels.Component}
