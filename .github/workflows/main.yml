@@ -1,9 +1,6 @@
 name: Deploy changes
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
 
 env:
