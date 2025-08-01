@@ -12,6 +12,7 @@ spec:
       labels:
         component: #{Project.Labels.Component}
         mode: demo
+        debug: false
     spec:
       containers:
         - name: web
