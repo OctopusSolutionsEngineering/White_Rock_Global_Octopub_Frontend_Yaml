@@ -11,6 +11,7 @@ spec:
     metadata:
       labels:
         component: #{Project.Labels.Component}
+        new: true
     spec:
       containers:
         - name: web
