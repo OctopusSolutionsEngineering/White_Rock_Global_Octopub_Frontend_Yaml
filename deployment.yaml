@@ -11,6 +11,7 @@ spec:
     metadata:
       labels:
         component: #{Project.Labels.Component}
+        mode: demo
     spec:
       containers:
         - name: web
