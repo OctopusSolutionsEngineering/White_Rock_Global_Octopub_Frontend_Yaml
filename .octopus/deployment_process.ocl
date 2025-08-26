@@ -43,7 +43,8 @@ step "deploy-frontend-service" {
     action "deploy-frontend-service-and-ingress" {
         action_type = "Octopus.KubernetesDeployRawYaml"
         properties = {
-            Octopus.Action.GitRepository.Source = "External"
+            Octopus.Action.GitRepository.FilePathFilters = "*.yaml"
+            Octopus.Action.GitRepository.Source = "Project"
             Octopus.Action.Kubernetes.DeploymentTimeout = "360"
             Octopus.Action.Kubernetes.ResourceStatusCheck = "True"
             Octopus.Action.Kubernetes.ServerSideApply.Enabled = "True"
@@ -59,14 +60,6 @@ step "deploy-frontend-service" {
         container {
             feed = "docker-hub"
             image = "octopusdeploy/worker-tools:6.2.1-ubuntu.22.04"
-        }
-
-        git_dependencies {
-            default_branch = "main"
-            file_path_filters = ["*.yaml"]
-            git_credential_id = "GitCredentials-122"
-            git_credential_type = "Library"
-            repository_uri = "https://github.com/OctopusSamples/OctoPetShop.git"
         }
 
         packages "octopub-frontend" {
