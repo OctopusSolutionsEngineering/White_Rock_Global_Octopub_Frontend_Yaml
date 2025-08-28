@@ -39,3 +39,13 @@ variable "old-Octopus.Azure.Account" {
 
     value "demo-octopus-app" {}
 }
+
+variable "CPU" {
+    value "val 1" {
+        channel = ["v99"]
+    }
+
+    value "val 2" {
+        channel = ["v100"]
+    }
+}
