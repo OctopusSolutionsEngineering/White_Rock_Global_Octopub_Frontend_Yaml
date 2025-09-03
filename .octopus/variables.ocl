@@ -22,14 +22,6 @@ variable "Project.Deployment.Name" {
     value "octopub-frontend-deployment" {}
 }
 
-variable "Project.Deployment.Replicas" {
-    value "1" {}
-
-    value "2" {
-        environment = ["production"]
-    }
-}
-
 variable "Project.Ingress.Name" {
     value "octopub-ingress" {}
 }
@@ -47,5 +39,13 @@ variable "CPU" {
 
     value "val 2" {
         channel = ["v100"]
+    }
+}
+
+variable "Project.Deployment.Replicas" {
+    value "2" {}
+
+    value "3" {
+        environment = ["production"]
     }
 }
