@@ -43,9 +43,9 @@ variable "CPU" {
 }
 
 variable "Project.Deployment.Replicas" {
-    value "2" {}
-
     value "3" {
         environment = ["production"]
     }
+
+    value "1" {}
 }
